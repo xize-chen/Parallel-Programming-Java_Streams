@@ -81,6 +81,7 @@ In this assignment, we define a word that only contains English letters (i.e. a-
 ## Submission Checklist
 * Make sure you have pushed all changes to the repository. Ensure that you can see your changes on GitLab before submission.
 * Make sure you have answered ten questions above in this page.
+* Mark sure you include the Java code to run each method of 10 questions in 'main' method of 'StreamAssignment' java file, so that we could run and test your code.
 
 ## Grading (60 marks) 
 
