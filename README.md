@@ -1,6 +1,6 @@
 # Assignment Four Java Streams (5%)
 
-## Due date Friday 1st May at 11:30 pm
+## Due date Friday 16th April at 11:30 pm
 
 
 # Instructions
@@ -13,10 +13,10 @@
    * IntelliJ: Alternatively, you could get the project from GitLab repository via IntelliJ interface. From the menu bar, 'Git' > 'Clone' > Copy the url to Repository URL > 'Clone' (Referenece: Get a project from version control: https://www.jetbrains.com/help/idea/import-project-or-module-wizard.html)
 * Commit your changes regularly, providing an informative commit message and using Git inside IntelliJ (Commit and Changes Tutorial: https://www.jetbrains.com/help/idea/commit-and-push-changes.html)
 
-Commit your changes regularly, providing an informative commit message. You are expected to make at least 20 commits with messages to explain what have changed. 10 out of 60 marks are allocated for this.
+Commit your changes regularly, providing an informative commit message. You are expected to make at least 10 commits with messages to explain what have changed. 5 out of 60 marks are allocated for this.
 
 ## Your tasks
-The goal of this assignment is to learn how to write Java lambda expressions and use Stream operations. You will implement eight empty methods provided in StreamAssignment.java and answer 10 questions. Please read the implementation specifications at the beginning of each method carefully and try to use lambda expressions (or method references), and stream operations wherever possible and appropriate.
+The goal of this assignment is to learn how to write Java lambda expressions and use Stream operations. You will implement eight empty methods provided in StreamAssignment.java and answer 10 quiz questions on Moodle. Please read the implementation specifications at the beginning of each method carefully and try to use lambda expressions (or method references), and stream operations wherever possible and appropriate.
 Marks are given based on the correctness of answers, and proper use of lambda expressions (or method references) and stream operations.
 
 The wikipedia file used is on the Moodle or at 
@@ -27,68 +27,18 @@ and can be accessed on any Linux machines in R-block
 
 In this assignment, we define a word that only contains English letters (i.e. a-z or A-Z), or digits, and consists of at least two characters. For example, "The, "tHe", or "1989" is a word, and "89_", and "things," (containing punctuation) are not.
 
-```
->#1 and #2 Implement toWordStream and wordCount method. (Hint: use BufferedReader.lines to read lines from a file)
->Q1. How many words are in wiki.xml?
->write your answer here 
->Q2. How much speed up do you get by running the word stream parallel (e.g. 1.5X, 2X, 3X, etc.)?
->write your answer here 
-```
-```
->#3 Implement uniqueWordList method.
->Q3. How many unique words are in wiki.xml?
->write your answer here
-```
-```
->#4 Implement longestDigit method. 
->Q4. What is the longest digit number in wiki.xml?
->write your answer here
-```
-
-```
->#5 Implement wordsWithThreeLettersCount method. 
->Q5. How many three-letter words (case-insensitive) (e.g. "has", "How", "wHy", "THE", "123", etc.) are in wiki.xml?
->write your answer here
-```
-```
->#6 Implement avergeWordlength method.
->Q6. What is the average word length in wiki.xml?
->write your answer here
-```
-```
->#7 Implement toWordCountMap method.
->Q7. How many times does the word "the" (case-sensitive) occour in wiki.xml?
->write your answer here
-```
-
-```
->#8 Implement groupWordByLength method.
->Q8. How many unique words with the length of four characters are in wiki.xml?
->write your answer here
-```
-
-```
->#9 Implement printLinesFound method and a BiFunction to test printLinesFound method.
->Q9. What is the first index number when searching for the word "science" (case-sensitive) in wiki.xml?
->write your answer here
-```
-
-```
->Q10. Does printLinesFound method run faster (at least 1.5X speedup) by paralleling the line stream, why or why not (Hint: you could test it using a larger file by making multiple copies of wiki_1.xml and concatenating them together)? Do the sorted results differ after using parallel stream, why? What stream operation can be added (showing it in the code) to achieve the same sorted results while still using parallel line stream?
->write your answer here
-```
 
 ## Submission Checklist
 * Make sure you have pushed all changes to the repository. Ensure that you can see your changes on GitLab before submission.
-* Make sure you have answered ten questions above in this page.
+* Make sure you have answered ten questions on Moodle.
 * Mark sure you include the Java code to run each method of 10 questions in 'main' method of 'StreamAssignment' java file, so that we could run and test your code.
 
 ## Grading (60 marks) 
 
 |Marks|Allocated to|
 |-----|-------|
-|10|At least twenty informative Commit comments |
-|10| Ten questions (1 mark each) |
+|5|At least ten informative Commit comments |
+|15| Ten questions (1 mark each) |
 |32 |#1 to #8 implementation (4 marks each). Marks are given based on the proper use of lambda expressions (or method references) and stream operations. |
 |8 |#9 implementation. Marks are given based on the proper use of lambda expressions (or method references) and stream operations|
 
