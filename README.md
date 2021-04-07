@@ -33,12 +33,12 @@ In this assignment, we define a word that only contains English letters (i.e. a-
 * Make sure you have answered ten questions on Moodle.
 * Mark sure you include the Java code to run each method of 10 questions in 'main' method of 'StreamAssignment' java file, so that we could run and test your code.
 
-## Grading (60 marks) 
+## Grading (50 marks) 
 
 |Marks|Allocated to|
 |-----|-------|
 |5|At least ten informative Commit comments |
-|10| Ten questions|
-|32 |#1 to #8 implementation (4 marks each). Marks are given based on the proper use of lambda expressions (or method references) and stream operations. |
-|13 |#9 implementation. Marks are given based on the proper use of lambda expressions (or method references) and stream operations|
+|10| Ten questions on Moodel|
+|28 |#1 to #8 implementation (3.5 marks each). Marks are given based on the proper use of lambda expressions (or method references) and stream operations. |
+|7 |#9 implementation. Marks are given based on the proper use of lambda expressions (or method references) and stream operations|
 
