@@ -28,6 +28,7 @@ public class  StreamAssignment {
         Pattern splitter = Pattern.compile("[^a-zA-Z0-9]+");
         String regex = "[^a-zA-Z]+\\d+[^a-zA-Z]*|\\d+[^a-zA-Z]+\\d*";
         return Files.lines(Paths.get(file))
+                .parallel()
                 .flatMap(splitter::splitAsStream)
                 .filter(word -> word.length()>1 && !word.matches(regex) );
     }
@@ -43,7 +44,8 @@ public class  StreamAssignment {
      */
     public static long wordCount(String file) throws Exception {
         long starting = System.currentTimeMillis();
-        long numOfWords = toWordStream(file).count();
+        long numOfWords = toWordStream(file)
+                .count();
         long ending = System.currentTimeMillis();
         System.out.println("  creating the stream and counting words took " + (ending - starting) / 1e3 + " secs.");
         return numOfWords;
