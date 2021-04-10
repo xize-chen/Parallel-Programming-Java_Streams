@@ -105,8 +105,10 @@ public class  StreamAssignment {
      * i.e. Your code looks like:
      * return toWordStream(file).reduce(...);
      */
-    public static long wordsWithThreeLettersCount(String file) {
-        return 0;
+    public static long wordsWithThreeLettersCount(String file) throws Exception {
+        return toWordStream(file)
+                .reduce(0,(i,str) -> i + ((str.matches(".{3}")) ? 1 : 0),
+                        Integer::sum);
     }
 
     /**
@@ -191,7 +193,7 @@ public class  StreamAssignment {
 			//System.out.printf("%,d%n", wordCount(file));
             // Q3
             System.out.println("Q3. How many unique words are in wiki.xml?" );
-			//System.out.printf("%,d%n", uniqueWordList(file) != null? uniqueWordList(file).size(): 0);
+			System.out.printf("%,d%n", uniqueWordList(file) != null? uniqueWordList(file).size(): 0);
             // Q4
 			System.out.println("Q4. What is the longest digit number in wiki.xml?");
 			System.out.printf("%s%n", longestDigit(file));
