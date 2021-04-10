@@ -1,14 +1,18 @@
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 
 /**
  * A class provides stream assignment implementation template
  */
-public class StreamAssignment {
+public class  StreamAssignment {
 
 
     /**
@@ -20,8 +24,12 @@ public class StreamAssignment {
      * consists of at least two characters. For example, “The”, “tHe”, or "1989" is a word,
      * but “89_”, “things,” (containing punctuation) are not.
      */
-    public static Stream<String> toWordStream(String file) {
-        return null;
+    public static Stream<String> toWordStream(String file) throws Exception {
+        Pattern splitter = Pattern.compile("[^a-zA-Z0-9]+");
+        String regex = "[^a-zA-Z]+\\d+[^a-zA-Z]*|\\d+[^a-zA-Z]+\\d*";
+        return Files.lines(Paths.get(file))
+                .flatMap(splitter::splitAsStream)
+                .filter(word -> word.length()>1 && !word.matches(regex) );
     }
 
     /**
@@ -33,8 +41,12 @@ public class StreamAssignment {
      * (2) counts the number of words in the file
      * (3) measures the time of creating the stream and counting
      */
-    public static long wordCount(String file) {
-        return 0;
+    public static long wordCount(String file) throws Exception {
+        long starting = System.currentTimeMillis();
+        long numOfWords = toWordStream(file).count();
+        long ending = System.currentTimeMillis();
+        System.out.println("  creating the stream and counting words took " + (ending - starting) / 1e3 + " secs.");
+        return numOfWords;
     }
 
     /**
@@ -151,6 +163,9 @@ public class StreamAssignment {
         String file = args[0];
         try {
             // Your code goes here and include the method calls for all 10 questions.
+            System.out.println("Number of Processors: " + Runtime.getRuntime().availableProcessors());
+            //System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "16");
+
             // Q1 and Q2
             System.out.println("Q1. How many words are in wiki.xml?");
 			System.out.printf("%,d%n", wordCount(file));
