@@ -1,11 +1,13 @@
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -26,7 +28,7 @@ public class  StreamAssignment {
      */
     public static Stream<String> toWordStream(String file) throws Exception {
         Pattern splitter = Pattern.compile("[^a-zA-Z0-9]+");
-        String regex = "[^a-zA-Z]+\\d+[^a-zA-Z]*|\\d+[^a-zA-Z]+\\d*";
+        String regex = "[a-zA-Z]+\\d+.*|\\d+[a-zA-Z]+.*";
         return Files.lines(Paths.get(file))
                 .parallel()
                 .flatMap(splitter::splitAsStream)
@@ -59,8 +61,11 @@ public class  StreamAssignment {
      * (1) uses the toWordStream method to create a word stream from the given file
      * (2) generates a list of unique words, sorted in a reverse alphabetical order
      */
-    public static List<String> uniqueWordList(String file) {
-        return null;
+    public static List<String> uniqueWordList(String file) throws Exception {
+        return toWordStream(file)
+                .distinct()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -71,8 +76,21 @@ public class  StreamAssignment {
      * (1) uses the toWordStream method to create a word stream from the given file
      * (2) uses Stream.reduce to find the longest digit number
      */
-    public static String longestDigit(String file) {
-        return null;
+    public static String longestDigit(String file) throws Exception {
+        long starting = System.currentTimeMillis();
+        List<String> longestDigits = toWordStream(file)
+                .filter(word -> word.matches("\\d+") )
+                .collect(Collectors.groupingBy(String::length))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
+                .orElse(null);
+        long ending = System.currentTimeMillis();
+        System.out.println(" Find the longest digit number took " + (ending - starting) / 1e3 + " secs.");
+        assert longestDigits != null;
+        System.out.println("Length of longest digits list: " + longestDigits.size());
+        return longestDigits.get(0);
     }
 
 
@@ -170,10 +188,10 @@ public class  StreamAssignment {
 
             // Q1 and Q2
             System.out.println("Q1. How many words are in wiki.xml?");
-			System.out.printf("%,d%n", wordCount(file));
+			//System.out.printf("%,d%n", wordCount(file));
             // Q3
             System.out.println("Q3. How many unique words are in wiki.xml?" );
-			System.out.printf("%,d%n", uniqueWordList(file) != null? uniqueWordList(file).size(): 0);
+			//System.out.printf("%,d%n", uniqueWordList(file) != null? uniqueWordList(file).size(): 0);
             // Q4
 			System.out.println("Q4. What is the longest digit number in wiki.xml?");
 			System.out.printf("%s%n", longestDigit(file));
