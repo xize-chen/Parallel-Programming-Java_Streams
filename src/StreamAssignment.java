@@ -107,6 +107,7 @@ public class  StreamAssignment {
      */
     public static long wordsWithThreeLettersCount(String file) throws Exception {
         return toWordStream(file)
+                .parallel()
                 .reduce(0,(i,str) -> i + ((str.matches(".{3}")) ? 1 : 0),
                         Integer::sum);
     }
@@ -121,8 +122,15 @@ public class  StreamAssignment {
      * to calculate the total length and total number of words
      * (3) the average word length can be calculated separately e.g. return total_length/total_number_of_words
      */
-    public static double avergeWordlength(String file) {
-        return 0.0;
+    public static double avergeWordlength(String file) throws Exception {
+        long[] totals = toWordStream(file)
+                .sequential()
+                .reduce(new long[]{0, 0},
+                        (i, str) -> {i[0] = i[0] + str.length(); i[1]++; return i;},
+                        (m,n) -> {m[0] = m[0] + n[0]; m[1] = m[1] + n[1]; System.out.println("combiner " + m[0] + " " + m[1] + " " + n[0] + " " + n[1]);
+                        return m;} );
+        System.out.println(totals[0] + "/" + totals[1]);
+        return (double) totals[0] / totals[1];
     }
 
     /**
@@ -185,12 +193,12 @@ public class  StreamAssignment {
         String file = args[0];
         try {
             // Your code goes here and include the method calls for all 10 questions.
-            System.out.println("Number of Processors: " + Runtime.getRuntime().availableProcessors());
+            //System.out.println("Number of Processors: " + Runtime.getRuntime().availableProcessors());
             //System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "16");
 
             // Q1 and Q2
             System.out.println("Q1. How many words are in wiki.xml?");
-			//System.out.printf("%,d%n", wordCount(file));
+			System.out.printf("%,d%n", wordCount(file));
             // Q3
             System.out.println("Q3. How many unique words are in wiki.xml?" );
 			System.out.printf("%,d%n", uniqueWordList(file) != null? uniqueWordList(file).size(): 0);
