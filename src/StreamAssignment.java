@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -142,8 +143,9 @@ public class  StreamAssignment {
      * (2) uses Stream.collect, Collectors.groupingBy, etc., to generate a map
      * containing pairs of word and its occurrences.
      */
-    public static Map<String, Integer> toWordCountMap(String file) {
-        return null;
+    public static Map<String, Integer> toWordCountMap(String file) throws Exception {
+        return toWordStream(file).collect(Collectors.groupingBy(Function.identity(),
+                Collectors.summingInt(i -> 1)));
     }
 
     /**
