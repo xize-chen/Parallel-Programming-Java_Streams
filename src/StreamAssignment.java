@@ -187,6 +187,7 @@ public class  StreamAssignment {
      */
     public static void printLinesFound(BiFunction<String, String, Integer> pf, String targetFile, String targetString) {
 
+
     }
 
 
@@ -227,7 +228,7 @@ public class  StreamAssignment {
 			// Q9
 			System.out.println("Q9. What is the first index number when searching for the word \"science\" (case-sensitive) in wiki.xml?");
 			// A Bifunction tests 'printLinesFound' method
-			BiFunction indexFunction = null;
+            BiFunction<String, String, Integer> indexFunction = String::indexOf;
 			printLinesFound(indexFunction, file, "science");
 
         } catch (Exception e) {
