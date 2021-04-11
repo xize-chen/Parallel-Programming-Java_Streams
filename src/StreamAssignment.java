@@ -1,4 +1,6 @@
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Comparator;
@@ -186,7 +188,17 @@ public class  StreamAssignment {
      *                      ...
      */
     public static void printLinesFound(BiFunction<String, String, Integer> pf, String targetFile, String targetString) {
-
+        try (BufferedReader reader = Files.newBufferedReader(
+                Paths.get(targetFile))) {
+             reader.lines()
+                    .map(t -> new Object[] {pf.apply(t, targetString), t})
+                    .sorted((a,b) -> Integer.compare((Integer) b[0],(Integer)a[0]))
+                    .limit(20)
+                    .forEach(a -> System.out.println(a[0] + ":<" + a[1] + ">"));
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
     }
 
@@ -223,7 +235,7 @@ public class  StreamAssignment {
 			//System.out.printf("%,d%n", toWordCountMap(file) != null? toWordCountMap(file).get("the"): 0);
 			// Q8
 			System.out.println("Q8. How many unique words with the length of four characters are in wiki.xml?");
-			System.out.printf("%,d%n", groupWordByLength(file) != null? groupWordByLength(file).get(4).size(): 0);
+			//System.out.printf("%,d%n", groupWordByLength(file) != null? groupWordByLength(file).get(4).size(): 0);
 
 			// Q9
 			System.out.println("Q9. What is the first index number when searching for the word \"science\" (case-sensitive) in wiki.xml?");
