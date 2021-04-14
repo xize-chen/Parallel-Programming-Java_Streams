@@ -127,11 +127,11 @@ public class  StreamAssignment {
      */
     public static double avergeWordlength(String file) throws Exception {
         long[] totals = toWordStream(file)
-                .sequential()
+                .parallel()
                 .reduce(new long[]{0, 0},
                         (i, str) -> {i[0] = i[0] + str.length(); i[1]++; return i;},
-                        (m,n) -> {m[0] = m[0] + n[0]; m[1] = m[1] + n[1]; System.out.println("combiner " + m[0] + " " + m[1] + " " + n[0] + " " + n[1]);
-                        return m;} );
+                        (m,n) -> {long [] cb = new long[] {m[0] + n[0], m[1] + n[1]}; System.out.println("combiner " + m[0] + " " + n[0] + " " + m[1] + " " + n[1]);
+                        return cb;} );
         System.out.println(totals[0] + "/" + totals[1]);
         return (double) totals[0] / totals[1];
     }
@@ -229,7 +229,7 @@ public class  StreamAssignment {
 			//System.out.printf("%,d%n", wordsWithThreeLettersCount(file));
 			// Q6
 			System.out.println("Q6. What is the average word length in wiki.xml?");
-			//System.out.printf("%.2f%n", avergeWordlength(file));
+			System.out.printf("%.2f%n", avergeWordlength(file));
             // Q7
 			System.out.println("Q7. How many times does the word \"the\" (case-sensitive) occur in wiki.xml?");
 			//System.out.printf("%,d%n", toWordCountMap(file) != null? toWordCountMap(file).get("the"): 0);
@@ -241,7 +241,7 @@ public class  StreamAssignment {
 			System.out.println("Q9. What is the first index number when searching for the word \"science\" (case-sensitive) in wiki.xml?");
 			// A Bifunction tests 'printLinesFound' method
             BiFunction<String, String, Integer> indexFunction = String::indexOf;
-			printLinesFound(indexFunction, file, "science");
+			// printLinesFound(indexFunction, file, "science");
 
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
