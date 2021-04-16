@@ -80,21 +80,28 @@ public class  StreamAssignment {
      * (2) uses Stream.reduce to find the longest digit number
      */
     public static String longestDigit(String file) throws Exception {
-        long starting = System.currentTimeMillis();
-        List<String> longestDigits = toWordStream(file)
+
+        return  toWordStream(file)
                 .filter(word -> word.matches("\\d+") )
-                .collect(Collectors.groupingBy(String::length))
-                .entrySet()
-                .stream()
-                .max(Map.Entry.comparingByKey())
-                .map(Map.Entry::getValue)
-                .orElse(null);
-        long ending = System.currentTimeMillis();
-        System.out.println(" Find the longest digit number took " + (ending - starting) / 1e3 + " secs.");
-        assert longestDigits != null;
-        System.out.println("Length of longest digits list: " + longestDigits.size());
-        return longestDigits.get(0);
+                .reduce((f,s) -> f.length()>=s.length()? f:s).orElse(null);
+
     }
+//    public static String longestDigit(String file) throws Exception {
+//        long starting = System.currentTimeMillis();
+//        List<String> longestDigits = toWordStream(file)
+//                .filter(word -> word.matches("\\d+") )
+//                .collect(Collectors.groupingBy(String::length))
+//                .entrySet()
+//                .stream()
+//                .max(Map.Entry.comparingByKey())
+//                .map(Map.Entry::getValue)
+//                .orElse(null);
+//        long ending = System.currentTimeMillis();
+//        System.out.println(" Find the longest digit number took " + (ending - starting) / 1e3 + " secs.");
+//        assert longestDigits != null;
+//        System.out.println("Length of longest digits list: " + longestDigits.size());
+//        return longestDigits.get(0);
+//    }
 
 
     /**
@@ -223,13 +230,13 @@ public class  StreamAssignment {
 			//System.out.printf("%,d%n", uniqueWordList(file) != null? uniqueWordList(file).size(): 0);
             // Q4
 			System.out.println("Q4. What is the longest digit number in wiki.xml?");
-			//System.out.printf("%s%n", longestDigit(file));
+			System.out.printf("%s%n", longestDigit(file));
             // Q5
 			System.out.println("Q5. How many three-letter words (case-insensitive) (e.g. \"has\", \"How\", \"wHy\", \"THE\", \"123\", etc.) are in wiki.xml?");
 			//System.out.printf("%,d%n", wordsWithThreeLettersCount(file));
 			// Q6
 			System.out.println("Q6. What is the average word length in wiki.xml?");
-			System.out.printf("%.2f%n", avergeWordlength(file));
+			//System.out.printf("%.2f%n", avergeWordlength(file));
             // Q7
 			System.out.println("Q7. How many times does the word \"the\" (case-sensitive) occur in wiki.xml?");
 			//System.out.printf("%,d%n", toWordCountMap(file) != null? toWordCountMap(file).get("the"): 0);
